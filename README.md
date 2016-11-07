@@ -38,48 +38,36 @@
 
 #### II-nd class
 
-Interactive exercise involving:
-
-TODO: come up with good dataset for examples!
-
-* SQL tabs http://www.sqltabs.com/?utm_source=postgresweekly&utm_medium=email for MAC os
+The purpose of this is to introduce a lot. We aim at answering a real analytics
+question by introducing advanced concepts that will be further covered on the
+following classes.
 
 * Show this picture http://4.bp.blogspot.com/-2IXAKJouqh4/VG9rvwmgEmI/AAAAAAAAG-Y/G7dcmCAE6L8/s1600/SQL%2BQuery%2Boverview.PNG
 
+* `TRUNCATE TABLE`
 * Introduction to data types:
-  - `INTEGER`,
-  - `NUMERIC`,
-  - `DATE/TIME/TIMESTAMP`,
-  - `TEXT`,
-  - `BOOLEAN`,
-  - Create a more complex table examples involving more data types
+  - `INTEGER`
+  - `NUMERIC`
+  - `DATE/TIME/TIMESTAMP`
+  - `TEXT`
+* Introduction to `JOIN`s - the `INNER JOIN`
+* Introduction to Aggregations - `GROUP BY`, `ORDER BY`
 
-* DDL - `ALTER TABLE`, `ALTER COLUMN`, `TRUNCATE TABLE` etc.
-  - Refer to the data types to change/add column to an existing table;
-* DML - `UPDATE`, `DELETE`
-* Intro to table JOINs - the Cross Join, the Inner Join
-  - Maybe ask people to do it on the table with two simple tables.
-
-    products(id, price, price)
-    customers (id, name, address)
-    orders (id, customer_id, )
-
-  (mention that relationship is sometimes called `1:N` or 1 to many)
-  (but mention that customers to products is called `N:M` or many-to-many)
-
-* Intro to `ORDER BY`, `LIMIT`
-
-* TASKS:
-
-0. Revisit the example from last time with extract month
-1. order the customers by `signup_date`
-2. how much revenue do we have from users who signed up in january
+  - mention that the `products<->orders` relationship is called `1:N` or 1-to-many
+  - and that the `customers<->products` relationship is called `N:M` or many-to-many
 
 #### III-nd class (All interactive - emphasize on `scoping` data):
 
 * Introduce this - https://pgexercises.com/questions/basic/
 
-* DML
+* Further data types:
+  - `BOOLEAN`
+
+* Further DDL commands:
+  - `ALTER TABLE`, `ADD COLUMN`
+  - Refer to the data types to change/add column (`BOOLEAN`) to an existing table
+* Intro to `ORDER BY`, `LIMIT`
+* Further DML commands:
   - `SELECT/DELETE/UPDATE WHERE`
   - `SELECT/DELETE/UPDATE WHERE LIKE`
   - `SELECT/DELETE/UPDATE WHERE NOT`
@@ -87,10 +75,9 @@ TODO: come up with good dataset for examples!
   - `SELECT/DELETE/UPDATE WHERE <>=!=`
   - `SELECT/DELETE/UPDATE WHERE BETWEEN`
   - `SELECT a+b FROM` - e.g. expressions in attributes
-* Advanced table JOINs - the Outer Joins
+
 * More examples involving data types
 * More examples involving `ORDER BY`, `LIMIT`
-* Intro to `GROUP BY`
 
 #### IV-th class (All interactive - emphasize on `aggregation over groups` of
 data):
