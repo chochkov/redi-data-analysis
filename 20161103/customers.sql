@@ -1,14 +1,31 @@
-DROP TABLE IF EXISTS customers;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS orders;
-
-CREATE TABLE customers (
+-- This script loads three tables with data in the database. The data is
+-- generated randomly and represents a basic E-Commerce database:
+--
+--    `customers` table contains personal data for each customer.
+--    `products` table contains descriptions for the products on sale.
+--    `orders` table contains the history of all products that customers bought.
+--
+-- Our target for this class would be to introduce the concept the SQL
+-- JOIN, GROUP BY and ORDER BY concepts. We'd also introduce the aggregation
+-- function `SUM` from SQL.
+--
+-- Once we've done this, we can answer the question 'What is the total revenue
+-- from the orders our customers created grouped by region in Germany.'
+--
+-- To execute this script, simply paste it into your PostgreSQL console (PGAdmin or psql).
+--
+-- ---
+--
+-- I. At first we define the table structures and insert some random data.
+--
+CREATE TABLE IF NOT EXISTS customers (
   id          integer,
   name        text,
   city        text,
   region      text,
   signup_date date
 );
+TRUNCATE TABLE customers;
 
 INSERT INTO customers (id, name, city, region, signup_date)
 (VALUES
@@ -119,6 +136,7 @@ CREATE TABLE IF NOT EXISTS products (
   name  text,
   price numeric
 );
+TRUNCATE TABLE products;
 
 INSERT INTO products (id, name, price) (
   VALUES
@@ -129,14 +147,15 @@ INSERT INTO products (id, name, price) (
 
 CREATE TABLE IF NOT EXISTS orders (
   id          integer,
-  created_at  date,
+  order_date  date,
   quantity    integer,
   customer_id integer,
   product_id  integer
 );
+TRUNCATE TABLE orders;
 
-INSERT INTO orders (id, customer_id, product_id, quantity, created_at) (
-  values
+INSERT INTO orders (id, customer_id, product_id, quantity, order_date) (
+  VALUES
     (1,85,3,1,'2015-05-04'),
     (2,83,2,5,'2015-10-12'),
     (3,30,2,3,'2015-06-27'),
@@ -387,30 +406,66 @@ INSERT INTO orders (id, customer_id, product_id, quantity, created_at) (
     (248,37,2,6,'2015-10-19'),
     (249,82,2,6,'2015-10-04'),
     (250,7,1,3,'2015-09-01')
-)
+);
 
--- Now we have all the data inserted, it's time to start to query!
+-- II. Now we have all the data inserted - it's time to start to query!
 
--- Let's get all the data together!
+-- Let's get all the data together! This query JOINs all three table based on
+-- their IDs. For example each the data from the `customers` table gets put
+-- together next to the data from the `orders` table based on the
+-- `customers.id` and the `orders.customer_id` attributes.
 SELECT *
 FROM customers
 JOIN orders ON customers.id = orders.customer_id
 JOIN products ON products.id = orders.product_id;
 
--- Now calculate the revenue per region.
-SELECT region, sum(price * quantity) AS revenue
+-- Here's a subset of the result from joining (ALL) our data together.
+--
+--  id  |       name        |       city        |         region         | signup_date | id  | quantity | customer_id | product_id | order_date | id |  name   | price
+-- -----+-------------------+-------------------+------------------------+-------------+-----+----------+-------------+------------+------------+----+---------+-------
+--    5 | Cyrus Crawford    | Hamburg           | Hamburg                | 2016-07-24  |  79 |        8 |           5 |          1 | 2015-12-26 |  1 | watch   | 55.55
+--   41 | Igor Nolan        | Berlin            | Berlin                 | 2015-08-16  | 179 |        9 |          41 |          1 | 2015-10-07 |  1 | watch   | 55.55
+--   74 | Cedric Conway     | Berlin            | Berlin                 | 2016-05-10  |  25 |        8 |          74 |          1 | 2015-04-14 |  1 | watch   | 55.55
+-- ...
+-- (more rows are omitted)
+--
+
+--
+-- Finally we can reach the goal of this class and calculate the revenue per
+-- region! Some notes on this query:
+--
+--    * We define revenue to equal price multiplied by quantity, hence the
+--    expression `price * quantity`
+--    * We use the `ORDER BY` clause to bring the regions with highest
+--    revenue on top of our result (DESC stands for DESCENDING).
+--    * The `GROUP BY` clause splits the full data by the attribute `region`.
+--    This means that all rows (orders!) from the same region will fall into the
+--    same group.
+--    * Once we have all the region groups, the function `SUM()` applies the
+--    expression `price * quantity` per row (!) then sums up the values from all
+--    rows within each group.
+--
+SELECT region, SUM(price * quantity) AS revenue
 FROM customers
 JOIN orders ON customers.id = orders.customer_id
 JOIN products ON products.id = orders.product_id
 GROUP BY region
-ORDER BY revenue DESC
+ORDER BY revenue DESC;
 
-drop table tmp;
-create table tmp as
-SELECT customers.name customers_name, customers.city, products.name, products.price, orders.quantity, orders.created_at
-FROM customers
-JOIN orders ON customers.id = orders.customer_id
-JOIN products ON products.id = orders.product_id
-
--- send resources for beginning/intemediate SQL
-
+--  Here's the result from this query:
+--
+--          region         |  revenue
+-- ------------------------+------------
+--  Berlin                 | 1240212.00
+--  Hamburg                | 1005168.75
+--  Saarland               |  426053.25
+--  Bremen                 |  307413.00
+--  Hesse                  |  191145.75
+--  Baden                  |  179093.25
+--  Bavaria                |  124915.50
+--  North Rhine-Westphalia |   84035.25
+--  Saxony-Anhalt          |   69613.50
+--  Saxony                 |   57896.25
+--  Rhineland-Palatinate   |   47223.75
+--  Lower Saxony           |   37496.25
+--  Brandenburg            |    1128.75
