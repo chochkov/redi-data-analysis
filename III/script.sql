@@ -1,0 +1,11 @@
+-- This script builds from script II/.
+--
+-- Exercies for this class:
+--
+-- * Revisit last example from II/.
+-- * All revenue by city for regions Brandenburg, Lower and Saxony Baden
+-- * All revenue by month
+--   - using `extract(month from order_date)` (see I./)
+--   - using `date_trunc('month', order_date)` - Oh - better output!
+--   - introduce the date functions
+-- * All revenue by month

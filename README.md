@@ -2,6 +2,8 @@
 
 #### I-st class:
 
+https://github.com/chochkov/redi-data-analysis/tree/master/I
+
 * Introduce myself and my role at Adjust as well as Postgres's place in the
   Adjust stack (5 min). Announce that the one of the targets of this module
   would be for people to be able to listen and make sense an 5 minute concrete
@@ -38,6 +40,8 @@
 
 #### II-nd class
 
+https://github.com/chochkov/redi-data-analysis/tree/master/II
+
 The purpose of this is to introduce a lot. We aim at answering a real analytics
 question by introducing advanced concepts that will be further covered on the
 following classes.
@@ -57,6 +61,8 @@ following classes.
   - and that the `customers<->products` relationship is called `N:M` or many-to-many
 
 #### III-nd class (All interactive - emphasize on `scoping` data):
+
+https://github.com/chochkov/redi-data-analysis/tree/master/III
 
 * Introduce this - https://pgexercises.com/questions/basic/
 
