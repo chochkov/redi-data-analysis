@@ -1,7 +1,7 @@
 #### Exercises for class III.
 
 * Revisit last example from II/.
-* All revenue by city for product `whiskey`
+* All revenue by region for product `whiskey`
 * All revenue by city for a list of given regions: Brandenburg, Lower and Saxony Baden
 * All revenue by month
   - using `extract(month from order_date)` (see I./)
@@ -16,5 +16,5 @@
   SELECT products.name, orders.quantity, COUNT(*)
   FROM orders JOIN products ON products.id = orders.product_id
   GROUP BY (products.name, orders.quantity)
-  ORDER BY (products.name, count(*))
+  ORDER BY (products.name, COUNT(*))
   ```
