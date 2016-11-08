@@ -2,7 +2,7 @@
 
 * Revisit last example from II/.
 * All revenue by region for product `whiskey`
-* All revenue by city for a list of given regions: Brandenburg, Lower and Saxony Baden
+* All revenue by city for a list of given regions: Brandenburg, Lower Saxony and Baden
 * All revenue by month
   - using `extract(month from order_date)` (see I./)
   - using `date_trunc('month', order_date)` - Oh! What an output!
