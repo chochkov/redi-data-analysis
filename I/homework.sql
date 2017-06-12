@@ -1,4 +1,6 @@
--- In the script https://github.com/chochkov/redi-data-analysis/blob/master/I/script.sql replace the INSERT SQL statement with the one below:
+-- In the script from the class:
+-- https://github.com/chochkov/redi-data-analysis/blob/master/I/script.sql
+-- replace the INSERT SQL statement with the one below:
 
 INSERT INTO users (name, email, signup_date) (
   VALUES
@@ -42,7 +44,7 @@ INSERT INTO users (name, email, signup_date) (
   ('Whitney','Nunc.mauris@Aliquamrutrumlorem.net','2017-04-30')
 );
 
--- Go through the script from the class and make sure it makes sense to you.
+-- Task 0. Go through the script from the class again and make sure it all makes sense to you.
 
 -- Task 1. Select all users whose signup_date is a Saturday or a Sunday
 -- Hint: https://www.postgresql.org/docs/current/static/functions-datetime.html
