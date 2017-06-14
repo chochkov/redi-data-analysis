@@ -34,8 +34,7 @@ OR    signup_date BETWEEN '2017-07-01' AND '2017-09-30';
 -- The result is the same as V. Try it out! :)
 SELECT name, signup_date
 FROM users
-WHERE extract(month from signup_date)
-BETWEEN 7 AND 9;
+WHERE extract(month from signup_date) BETWEEN 7 AND 9;
 
 -- NOTE: with query VI. we are guaranteed to get the data for any year and not
 -- only 2016 or 2017!
