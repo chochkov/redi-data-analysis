@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS users;
 
 -- II. Create the table definition using the SQL verb `CREATE`
 CREATE TABLE users (
-  id          integer,
+  id          serial,
   name        text,
   email       text,
   signup_date date
